@@ -12,34 +12,36 @@ int main(int argc, char* argv[]){
     fstream myfile (filename);
 
     int row,column;
-    int i,j,k;
+    int i,j;
+    int tmpin;
     int input[2][1000];
 
     if(myfile.is_open()){
         myfile >> row >> column;
         cout << row << " " << column << endl;
 
-        for(i=0; i<part; i++){
-            for(j=0; j<100; j++){
-                for(k=0; k<column; k++){
-                    myfile >> input[j][k];
-                    trans[k][j] = input[j][k];
-                    //cout << input[j][k] << " ";
-
-                    
+        for(i=0; i<row; i++){
+            for(j=0; j<column; j++){
+                myfile >> tmpin;
+                if(i==0){
+                    input[0][j] = tmpin;
+                    //input[1][j] = 1;
+                    if(j>0){
+                        if(input[0][j-1] > tmpin){
+                            input[1][j-1] = 1;
+                            input[1][j] = 0;
+                        }else{
+                            input[1][j-1] = 0;
+                            input[1][j] = 1;
+                        }
+                    }
+                }else{
 
                 }
-                //cout << endl;
             }
         }
 
-        for(j=100*part; j<row; j++){
-            for(k=0; k<column; k++){
-                myfile >> input[j][k];
-                //cout << input[j][k] << " ";
-            }
-            //cout << endl;
-        }
+        
 
         myfile.close();
     }else{
@@ -48,4 +50,3 @@ int main(int argc, char* argv[]){
 
     return 0;
 }
-
