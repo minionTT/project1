@@ -25,18 +25,25 @@ int main(int argc, char* argv[]){
                 myfile >> tmpin;
                 if(i==0){
                     input[0][j] = tmpin;
-                    //input[1][j] = 1;
+                    input[1][j] = 1;
                     if(j>0){
                         if(input[0][j-1] > tmpin){
-                            input[1][j-1] = 1;
-                            input[1][j] = 0;
+                            input[1][j-1] = input[1][j-1] & 1;
+                            input[1][j] = input[1][j] & 0;
+                        }else if(input[0][j-1] < tmpin) {
+                            input[1][j-1] = input[1][j-1] & 0;
+                            input[1][j] = input[1][j] & 1;
                         }else{
-                            input[1][j-1] = 0;
-                            input[1][j] = 1;
+                            input[1][j-1] = input[1][j-1] & 1;
+                            input[1][j] = input[1][j] & 1;
                         }
                     }
                 }else{
+                    if(j==0){
+                        if(input[i-1][j] > tmpin){
 
+                        }
+                    }
                 }
             }
         }
