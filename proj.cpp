@@ -13,15 +13,11 @@ int main(int argc, char* argv[]){
 
     int row,column;
     int i,j,k;
-    int part;
-    int input[100][1000];
-    int trans[1000][100];
+    int input[2][1000];
 
     if(myfile.is_open()){
         myfile >> row >> column;
         cout << row << " " << column << endl;
-
-        part = row/100;
 
         for(i=0; i<part; i++){
             for(j=0; j<100; j++){
