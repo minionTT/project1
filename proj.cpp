@@ -16,7 +16,7 @@ class element{
             column = in2;
         }
         void print(){
-            cout << "(" << row << "," << column << ")" << endl;
+            cout <<  row << " " << column << endl;
         }
     private:
         int row;
@@ -38,6 +38,7 @@ int main(int argc, char* argv[]){
     int num=0;
     
     queue <element> myqueue;
+    queue <element> secqueue;
 
     if(myfile.is_open()){
         myfile >> row >> column;
@@ -62,7 +63,7 @@ int main(int argc, char* argv[]){
                         }
                     }
                 }else{
-                    if(input[0][j] > tmpin){
+                    if(input[0][j] >= tmpin){
                         if((input[1][j] & 1) == 1 ) {
                             //cout << i-1 << " " << j << endl;
                             element* in = (element*) new element(i-1,j);
@@ -71,20 +72,46 @@ int main(int argc, char* argv[]){
                             num++;
                         }
                     }
+                    
                     input[1][j] = 1;
                     input[0][j] = tmpin;
                     if(j>0){
                         if(input[0][j-1] > tmpin){
                             input[1][j-1] = input[1][j-1] & 1;
                             input[1][j] = input[1][j] & 0;
+                            if(i == row - 1){
+                                if(input[1][j-1] == 1){
+                                    element* in = (element*) new element(i,j);
+                                    secqueue.push( *in);
+                                    num++;
+                                }
+                            }
                         }else if(input[0][j-1] < tmpin) {
                             input[1][j-1] = input[1][j-1] & 0;
                             input[1][j] = input[1][j] & 1;
                         }else{
                             input[1][j-1] = input[1][j-1] & 1;
                             input[1][j] = input[1][j] & 1;
+                            if(i == row - 1){
+                                if(input[1][j-1] == 1){
+                                    element* in = (element*) new element(i,j);
+                                    secqueue.push( *in);
+                                    num++;
+                                }
+                            }
                         }
                     }
+                    if(i == row - 1){
+                        if(j == column - 1){
+                            if(input[1][j-1] == 1){
+                                element* in = (element*) new element(i,j);
+                                secqueue.push( *in);
+                                num++;
+                            }
+                        }
+                    }
+
+                    
                 }
             }
         }
@@ -94,6 +121,11 @@ int main(int argc, char* argv[]){
             element out = myqueue.front();
             out.print();
             myqueue.pop();
+        }
+        while(!secqueue.empty()){
+            element out = secqueue.front();
+            out.print();
+            secqueue.pop();
         }
         
 
