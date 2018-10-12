@@ -11,7 +11,7 @@ class element{
             row = row;
             column = column;
         }
-        void ptint(){
+        void print(){
             cout << "(" << row << "," << column << ")" << endl;
         }
     private:
@@ -60,7 +60,9 @@ int main(int argc, char* argv[]){
                 }else{
                     if(input[0][j] > tmpin){
                         if((input[1][j] & 1) == 1 ) {
-                            myqueue.push( new element(i-1,j));
+                            cout << i-1 << " " << j << endl;
+                            element* in = (element*) new element(i-1,j); 
+                            myqueue.push( *in);
                             num++;
                         }
                     }
@@ -82,6 +84,12 @@ int main(int argc, char* argv[]){
             }
         }
 
+        cout << num << endl;
+        while(!myqueue.empty()){
+            element out = myqueue.front();
+            out.print();
+            myqueue.pop();
+        }
         
 
         myfile.close();
