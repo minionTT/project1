@@ -7,9 +7,13 @@ using namespace std;
 
 class element{
     public:
-        element(int row, int column){
-            row = row;
-            column = column;
+        element(){
+            row = 0;
+            column = 0;
+        }
+        element(int in1, int in2){
+            row = in1;
+            column = in2;
         }
         void print(){
             cout << "(" << row << "," << column << ")" << endl;
@@ -37,7 +41,7 @@ int main(int argc, char* argv[]){
 
     if(myfile.is_open()){
         myfile >> row >> column;
-        cout << row << " " << column << endl;
+        //cout << row << " " << column << endl;
 
         for(i=0; i<row; i++){
             for(j=0; j<column; j++){
@@ -60,8 +64,9 @@ int main(int argc, char* argv[]){
                 }else{
                     if(input[0][j] > tmpin){
                         if((input[1][j] & 1) == 1 ) {
-                            cout << i-1 << " " << j << endl;
-                            element* in = (element*) new element(i-1,j); 
+                            //cout << i-1 << " " << j << endl;
+                            element* in = (element*) new element(i-1,j);
+                            //in->print(); 
                             myqueue.push( *in);
                             num++;
                         }
