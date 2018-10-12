@@ -1,11 +1,27 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <queue>
 
 using namespace std;
 
+class element{
+    public:
+        element(int row, int column){
+            row = row;
+            column = column;
+        }
+        void ptint(){
+            cout << "(" << row << "," << column << ")" << endl;
+        }
+    private:
+        int row;
+        int column;
+};
+
 int main(int argc, char* argv[]){
     string line;
+
     string filename = "./";
     filename += argv[1];
     filename += "/matrix.data";
@@ -15,6 +31,8 @@ int main(int argc, char* argv[]){
     int i,j;
     int tmpin;
     int input[2][1000];
+    
+    queue <>
 
     if(myfile.is_open()){
         myfile >> row >> column;
@@ -40,8 +58,10 @@ int main(int argc, char* argv[]){
                     }
                 }else{
                     if(j==0){
-                        if(input[i-1][j] > tmpin){
-
+                        if(input[0][j] > tmpin){
+                            if((input[1][j] & 1) == 1 ) {
+                                myqueue.push()
+                            }
                         }
                     }
                 }
