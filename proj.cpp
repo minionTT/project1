@@ -31,8 +31,9 @@ int main(int argc, char* argv[]){
     int i,j;
     int tmpin;
     int input[2][1000];
+    int num=0;
     
-    queue <>
+    queue <element> myqueue;
 
     if(myfile.is_open()){
         myfile >> row >> column;
@@ -57,11 +58,24 @@ int main(int argc, char* argv[]){
                         }
                     }
                 }else{
-                    if(j==0){
-                        if(input[0][j] > tmpin){
-                            if((input[1][j] & 1) == 1 ) {
-                                myqueue.push()
-                            }
+                    if(input[0][j] > tmpin){
+                        if((input[1][j] & 1) == 1 ) {
+                            myqueue.push( new element(i-1,j));
+                            num++;
+                        }
+                    }
+                    input[1][j] = 1;
+                    input[0][j] = tmpin;
+                    if(j>0){
+                        if(input[0][j-1] > tmpin){
+                            input[1][j-1] = input[1][j-1] & 1;
+                            input[1][j] = input[1][j] & 0;
+                        }else if(input[0][j-1] < tmpin) {
+                            input[1][j-1] = input[1][j-1] & 0;
+                            input[1][j] = input[1][j] & 1;
+                        }else{
+                            input[1][j-1] = input[1][j-1] & 1;
+                            input[1][j] = input[1][j] & 1;
                         }
                     }
                 }
