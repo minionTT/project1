@@ -59,7 +59,7 @@ int main(int argc, char* argv[]){
                     
                 }else{
                     if(input[0][j] >= tmpin){
-                        if((input[1][j] & 1) == 1 ) {
+                        if(input[1][j] == 1 ) {
                             element* in = (element*) new element(i-1,j);
                             myqueue.push( *in);
                             num++;
@@ -76,8 +76,7 @@ int main(int argc, char* argv[]){
                 input[0][j] = tmpin;
                 if(j>1){
                     if(input[0][j-1] > tmpin){
-                        input[1][j-1] = input[1][j-1] & 1;
-                        input[1][j] = input[1][j] & 0;
+                        input[1][j] = 0;
                         if(i == row){
                             if(input[1][j-1] == 1){
                                 element* in = (element*) new element(i,j-1);
@@ -86,11 +85,8 @@ int main(int argc, char* argv[]){
                             }
                         }
                     }else if(input[0][j-1] < tmpin) {
-                        input[1][j-1] = input[1][j-1] & 0;
-                        input[1][j] = input[1][j] & 1;
+                        input[1][j-1] = 0;
                     }else{
-                        input[1][j-1] = input[1][j-1] & 1;
-                        input[1][j] = input[1][j] & 1;
                         if(i == row){
                             if(input[1][j-1] == 1){
                                 element* in = (element*) new element(i,j-1);
