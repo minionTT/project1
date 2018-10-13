@@ -40,7 +40,7 @@ int main(int argc, char* argv[]){
     int row,column;
     int i,j;
     int tmpin;
-    int input[2][1001];
+    //int input[2][1001];
     int num=0;
     
     queue <element> myqueue;
@@ -48,6 +48,7 @@ int main(int argc, char* argv[]){
 
     if(infile.is_open()){
         infile >> row >> column;
+        int input[2][column+1];
 
         for(i=1; i<=row; i++){
             for(j=1; j<=column; j++){
