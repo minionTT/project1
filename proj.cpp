@@ -25,6 +25,16 @@ class element{
         int row;
         int column;
 };
+class store{
+    public:
+        store(){
+            val = 0;
+            peak = 1;
+        }
+    public:
+        int val;
+        bool peak;
+};
 
 int main(int argc, char* argv[]){
 
@@ -48,18 +58,18 @@ int main(int argc, char* argv[]){
 
     if(infile.is_open()){
         infile >> row >> column;
-        int input[2][column+1];
+        store input[column+1];
 
         for(i=1; i<=row; i++){
             for(j=1; j<=column; j++){
                 infile >> tmpin;
                 if(i==1){
-                    input[1][j] = 1;
+                    input[j].peak = 1;
 
                     
                 }else{
-                    if(input[0][j] >= tmpin){
-                        if(input[1][j] == 1 ) {
+                    if(input[j].val >= tmpin){
+                        if(input[j].peak == 1 ) {
                             element* in = (element*) new element(i-1,j);
                             myqueue.push( *in);
                             num++;
@@ -67,28 +77,28 @@ int main(int argc, char* argv[]){
                         }
                         
                     }
-                    if(input[0][j] > tmpin){
-                        input[1][j] = 0;
+                    if(input[j].val > tmpin){
+                        input[j].peak = 0;
                     }else{
-                        input[1][j] = 1;
+                        input[j].peak = 1;
                     }
                 }
-                input[0][j] = tmpin;
+                input[j].val = tmpin;
                 if(j>1){
-                    if(input[0][j-1] > tmpin){
-                        input[1][j] = 0;
+                    if(input[j-1].val > tmpin){
+                        input[j].peak = 0;
                         if(i == row){
-                            if(input[1][j-1] == 1){
+                            if(input[j-1].peak == 1){
                                 element* in = (element*) new element(i,j-1);
                                 secqueue.push( *in);
                                 num++;
                             }
                         }
-                    }else if(input[0][j-1] < tmpin) {
-                        input[1][j-1] = 0;
+                    }else if(input[j-1].val < tmpin) {
+                        input[j-1].peak = 0;
                     }else{
                         if(i == row){
-                            if(input[1][j-1] == 1){
+                            if(input[j-1].peak == 1){
                                 element* in = (element*) new element(i,j-1);
                                 secqueue.push( *in);
                                 num++;
@@ -100,8 +110,8 @@ int main(int argc, char* argv[]){
             }
         }
 
-        if(input[1][j] == 1){
-            element* in = (element*) new element(i,j);
+        if(input[j-1].peak == 1){
+            element* in = (element*) new element(i-1,j-1);
             secqueue.push( *in);
             num++;
         }
