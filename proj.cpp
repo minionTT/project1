@@ -100,16 +100,14 @@ int main(int argc, char* argv[]){
                         }
                     }
                 }
-                if(i == row){
-                    if(j == column){
-                        if(input[1][j] == 1){
-                            element* in = (element*) new element(i,j);
-                            secqueue.push( *in);
-                            num++;
-                        }
-                    }
-                }
+                
             }
+        }
+
+        if(input[1][j] == 1){
+            element* in = (element*) new element(i,j);
+            secqueue.push( *in);
+            num++;
         }
 
         if(outfile.is_open()){
