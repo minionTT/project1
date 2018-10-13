@@ -29,10 +29,14 @@ class element{
 int main(int argc, char* argv[]){
     string line;
 
-    string filename = "./";
-    filename += argv[1];
-    filename += "/matrix.data";
-    fstream myfile (filename);
+    string infilename = "./";
+    string outfilename = "./";
+    infilename += argv[1];
+    outfilename += argv[1];
+    infilename += "/matrix.data";
+    outfilename += "/final.peak";
+    fstream infile (infilename);
+    ofstream outfile (outfilename);
 
     int row,column;
     int i,j;
@@ -43,13 +47,13 @@ int main(int argc, char* argv[]){
     queue <element> myqueue;
     queue <element> secqueue;
 
-    if(myfile.is_open()){
-        myfile >> row >> column;
+    if(infile.is_open()){
+        infile >> row >> column;
         //cout << row << " " << column << endl;
 
         for(i=0; i<row; i++){
             for(j=0; j<column; j++){
-                myfile >> tmpin;
+                infile >> tmpin;
                 if(i==0){
                     input[1][j] = 1;
                     
@@ -109,25 +113,29 @@ int main(int argc, char* argv[]){
             }
         }
 
-        myfile << num << endl;
-        cout << num << endl;
-        while(!myqueue.empty()){
-            element out = myqueue.front();
-            myfile << out.print_row() << " " << out.print_col() << endl;
-            cout << out.print_row() << " " << out.print_col() << endl;
-            myqueue.pop();
+        if(outfile.is_open()){
+            outfile << num << endl;
+            cout << num << endl;
+            while(!myqueue.empty()){
+                element out = myqueue.front();
+                outfile << out.print_row() << " " << out.print_col() << endl;
+                cout << out.print_row() << " " << out.print_col() << endl;
+                myqueue.pop();
+            }
+            while(!secqueue.empty()){
+                element out = secqueue.front();
+                outfile << out.print_row() << " " << out.print_col() << endl;
+                cout << out.print_row() << " " << out.print_col() << endl;
+                secqueue.pop();
+            }
+            outfile.close();
+        }else{
+            cout << "Unable to open file_out" << endl;
         }
-        while(!secqueue.empty()){
-            element out = secqueue.front();
-            myfile << out.print_row() << " " << out.print_col() << endl;
-            cout << out.print_row() << " " << out.print_col() << endl;
-            secqueue.pop();
-        }
-        
 
-        myfile.close();
+        infile.close();
     }else{
-        cout << "Unable to open file." << endl;
+        cout << "Unable to open file_in" << endl;
     }
 
     return 0;
