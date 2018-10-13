@@ -27,7 +27,7 @@ class element{
 };
 
 int main(int argc, char* argv[]){
-    string line;
+    //string line;
 
     string infilename = "./";
     string outfilename = "./";
@@ -41,7 +41,7 @@ int main(int argc, char* argv[]){
     int row,column;
     int i,j;
     int tmpin;
-    int input[2][1000];
+    int input[2][1001];
     int num=0;
     
     queue <element> myqueue;
@@ -51,11 +51,12 @@ int main(int argc, char* argv[]){
         infile >> row >> column;
         //cout << row << " " << column << endl;
 
-        for(i=0; i<row; i++){
-            for(j=0; j<column; j++){
+        for(i=1; i<=row; i++){
+            for(j=1; j<=column; j++){
                 infile >> tmpin;
-                if(i==0){
+                if(i==1){
                     input[1][j] = 1;
+
                     
                 }else{
                     if(input[0][j] >= tmpin){
@@ -65,6 +66,7 @@ int main(int argc, char* argv[]){
                             //in->print(); 
                             myqueue.push( *in);
                             num++;
+                        
                         }
                         
                     }
@@ -75,13 +77,13 @@ int main(int argc, char* argv[]){
                     }
                 }
                 input[0][j] = tmpin;
-                if(j>0){
+                if(j>1){
                     if(input[0][j-1] > tmpin){
                         input[1][j-1] = input[1][j-1] & 1;
                         input[1][j] = input[1][j] & 0;
-                        if(i == row - 1){
+                        if(i == row){
                             if(input[1][j-1] == 1){
-                                element* in = (element*) new element(i,j);
+                                element* in = (element*) new element(i,j-1);
                                 secqueue.push( *in);
                                 num++;
                             }
@@ -92,17 +94,17 @@ int main(int argc, char* argv[]){
                     }else{
                         input[1][j-1] = input[1][j-1] & 1;
                         input[1][j] = input[1][j] & 1;
-                        if(i == row - 1){
+                        if(i == row){
                             if(input[1][j-1] == 1){
-                                element* in = (element*) new element(i,j);
+                                element* in = (element*) new element(i,j-1);
                                 secqueue.push( *in);
                                 num++;
                             }
                         }
                     }
                 }
-                if(i == row - 1){
-                    if(j == column - 1){
+                if(i == row){
+                    if(j == column){
                         if(input[1][j] == 1){
                             element* in = (element*) new element(i,j);
                             secqueue.push( *in);
@@ -115,17 +117,17 @@ int main(int argc, char* argv[]){
 
         if(outfile.is_open()){
             outfile << num << endl;
-            cout << num << endl;
+            //cout << num << endl;
             while(!myqueue.empty()){
                 element out = myqueue.front();
                 outfile << out.print_row() << " " << out.print_col() << endl;
-                cout << out.print_row() << " " << out.print_col() << endl;
+                //cout << out.print_row() << " " << out.print_col() << endl;
                 myqueue.pop();
             }
             while(!secqueue.empty()){
                 element out = secqueue.front();
                 outfile << out.print_row() << " " << out.print_col() << endl;
-                cout << out.print_row() << " " << out.print_col() << endl;
+                //cout << out.print_row() << " " << out.print_col() << endl;
                 secqueue.pop();
             }
             outfile.close();
