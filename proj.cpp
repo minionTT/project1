@@ -27,7 +27,6 @@ class element{
 };
 
 int main(int argc, char* argv[]){
-    //string line;
 
     string infilename = "./";
     string outfilename = "./";
@@ -49,7 +48,6 @@ int main(int argc, char* argv[]){
 
     if(infile.is_open()){
         infile >> row >> column;
-        //cout << row << " " << column << endl;
 
         for(i=1; i<=row; i++){
             for(j=1; j<=column; j++){
@@ -61,9 +59,7 @@ int main(int argc, char* argv[]){
                 }else{
                     if(input[0][j] >= tmpin){
                         if((input[1][j] & 1) == 1 ) {
-                            //cout << i-1 << " " << j << endl;
                             element* in = (element*) new element(i-1,j);
-                            //in->print(); 
                             myqueue.push( *in);
                             num++;
                         
@@ -117,17 +113,14 @@ int main(int argc, char* argv[]){
 
         if(outfile.is_open()){
             outfile << num << endl;
-            //cout << num << endl;
             while(!myqueue.empty()){
                 element out = myqueue.front();
                 outfile << out.print_row() << " " << out.print_col() << endl;
-                //cout << out.print_row() << " " << out.print_col() << endl;
                 myqueue.pop();
             }
             while(!secqueue.empty()){
                 element out = secqueue.front();
                 outfile << out.print_row() << " " << out.print_col() << endl;
-                //cout << out.print_row() << " " << out.print_col() << endl;
                 secqueue.pop();
             }
             outfile.close();
