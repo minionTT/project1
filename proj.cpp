@@ -15,8 +15,11 @@ class element{
             row = in1;
             column = in2;
         }
-        void print(){
-            cout <<  row << " " << column << endl;
+        int print_row(){
+            return row;
+        }
+        int print_col(){
+            return column;
         }
     private:
         int row;
@@ -106,15 +109,18 @@ int main(int argc, char* argv[]){
             }
         }
 
+        myfile << num << endl;
         cout << num << endl;
         while(!myqueue.empty()){
             element out = myqueue.front();
-            out.print();
+            myfile << out.print_row() << " " << out.print_col() << endl;
+            cout << out.print_row() << " " << out.print_col() << endl;
             myqueue.pop();
         }
         while(!secqueue.empty()){
             element out = secqueue.front();
-            out.print();
+            myfile << out.print_row() << " " << out.print_col() << endl;
+            cout << out.print_row() << " " << out.print_col() << endl;
             secqueue.pop();
         }
         
